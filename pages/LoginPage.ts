@@ -14,7 +14,7 @@ export class LoginPage {
     this.passwordInput     = page.locator('#password');
     this.continueButton       = page.locator('._button-login-id');
     this.signinButton        = page.getByRole('button', { name: /sign in/i }); 
-    this.resetPasswordLink = page.getByRole('link', { name: /reset password/i });
+    this.resetPasswordLink = page.getByText(/reset password/i);
     this.sendResetButton   = page.getByRole('button', { name: /send link/i });
   }
 
