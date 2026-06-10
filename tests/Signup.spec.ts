@@ -19,24 +19,18 @@ test.describe('Signup — Valid User', () => {
     await expect(signupPage.checkboxInput).toBeVisible();
     await expect(signupPage.signupButton).toBeVisible();
     const user = generateNewUser();
-    try {
-      await signupPage.signupEmail({
+    await signupPage.signupEmail({
         email: user.email,
-      });    
-      await context.pages()[1].waitForLoadState('networkidle');
-      // After submitting the email, we should see the password input and signup button for the next step of the signup process
-      await expect(signupPage.passwordInput).toBeVisible();
-      await signupPage.signupPassword({
-        password: user.password,
-      });
-      await context.pages()[1].waitForLoadState('networkidle');
-      // After submitting the password, we should see a successful signup message that prompts the user to confirm their email address 
-      await expect(signupPage.successfulMessage).toBeVisible(); // Should display login link for users who already have an account
-    } catch (error) {
-      // Capture screenshot on failure for debugging purposes, which can help identify issues such as non-unique email addresses or unexpected validation errors during the signup process
-      await context.pages()[1].screenshot({ path: `test-results/signup-failure-${Date.now()}.png` });
-      throw error;
-    }
+    });    
+    await context.pages()[1].waitForLoadState('networkidle');
+    // After submitting the email, we should see the password input and signup button for the next step of the signup process
+    await expect(signupPage.passwordInput).toBeVisible();
+    await signupPage.signupPassword({
+      password: user.password,
+    });
+    await context.pages()[1].waitForLoadState('networkidle');
+    // After submitting the password, we should see a successful signup message that prompts the user to confirm their email address 
+    await expect(signupPage.successfulMessage).toBeVisible(); // Should display login link for users who already have an account
   });
 });
 

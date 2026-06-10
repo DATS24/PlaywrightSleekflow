@@ -18,22 +18,16 @@ test.describe('Login — Successful for Valid Users', () => {
     await expect(loginPage.emailInput).toBeVisible();
     await expect(loginPage.continueButton).toBeVisible();
     const user = getExistingUser();
-    try {
-      await loginPage.loginEmail(user.email);
-      await context.pages()[1].waitForLoadState('networkidle');
-      // After submitting the email, we should see the password input and sign in button for the next step of the login process
-      await expect(loginPage.passwordInput).toBeVisible();
-      await expect(loginPage.resetPasswordLink).toBeVisible(); // Should display reset password link
-      await loginPage.loginPassword(user.password);
-      await context.pages()[1].waitForLoadState('networkidle');
-      // After submitting the password, we should be redirected to the dashboard/home page, indicating a successful login
-      await loginPage.expectSuccessfulLogin();
-    } catch (error) {
-      // Capture screenshot on failure for debugging purposes, which can help identify issues such as incorrect credentials or unexpected validation errors during the login process
-      await context.pages()[1].screenshot({ path: `test-results/login-failure-${Date.now()}.png` });
-      throw error;
-    }
-  });
+    await loginPage.loginEmail(user.email);
+    await context.pages()[1].waitForLoadState('networkidle');
+    // After submitting the email, we should see the password input and sign in button for the next step of the login process
+    await expect(loginPage.passwordInput).toBeVisible();
+    await expect(loginPage.resetPasswordLink).toBeVisible(); // Should display reset password link
+    await loginPage.loginPassword(user.password);
+    await context.pages()[1].waitForLoadState('networkidle');
+    // After submitting the password, we should be redirected to the dashboard/home page, indicating a successful login
+    await loginPage.expectSuccessfulLogin();
+});
 
   test('should allow user to reset password', async ({ page, context }) => {
     const homePage = new HomePage(page);
