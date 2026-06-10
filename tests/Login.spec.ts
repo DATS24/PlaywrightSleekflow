@@ -114,7 +114,7 @@ test.describe('Login — Empty Inputs & Invalid Username', () => {
 test.describe('Login — Invalid Credentials', () => {
 
   for (const scenario of invalidCredentials) {
-    test.only(`should show error for: ${scenario.label}`, async ({ page, context }) => {
+    test(`should show error for: ${scenario.label}`, async ({ page, context }) => {
       const homePage = new HomePage(page);
       await homePage.gotoLoginPage(context);
       const loginPage = new LoginPage(context.pages()[1]);
