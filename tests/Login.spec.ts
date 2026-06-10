@@ -64,7 +64,7 @@ test.describe('Login — Empty Inputs & Invalid Username', () => {
       (el: HTMLInputElement) => !el.validity.valid
     );
     expect(errors.length > 0 || emailEmpty).toBeTruthy(); // Should show either custom error messages or rely on native HTML5 validation for empty fields
-    expect(errors.some(error => error.toLowerCase().includes('please enter an email address'))).toBeTruthy(); // Should show an error message related to the email field being required or invalid 
+    expect(errors.some(error => error.toLowerCase().includes('email address or username is required'))).toBeTruthy(); // Should show an error message related to the email field being required or invalid 
   });
 
   test('should show error for empty password submission', async ({ page, context }) => {
