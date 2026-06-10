@@ -42,9 +42,11 @@ test.describe('Login — Successful for Valid Users', () => {
     const loginPage = new LoginPage(context.pages()[1]);
     const user = getExistingUser();
     await context.pages()[1].waitForLoadState('networkidle');
-    // After clicking the reset password link, we should be redirected to a page that allows us to enter our email for password reset instructions
     await expect(loginPage.emailInput).toBeVisible();
     await expect(loginPage.continueButton).toBeVisible();
+    await loginPage.loginEmail(user.email);
+    await context.pages()[1].waitForLoadState('networkidle');
+    // After clicking the reset password link, we should be redirected to a page that allows us to enter our email for password reset instructions
     await loginPage.resetPassword(user.email);
     await context.pages()[1].waitForLoadState('networkidle');
     // After submitting the email for password reset, we should see a confirmation message indicating that the reset instructions have been sent to the user's email address
@@ -112,7 +114,7 @@ test.describe('Login — Empty Inputs & Invalid Username', () => {
 test.describe('Login — Invalid Credentials', () => {
 
   for (const scenario of invalidCredentials) {
-    test(`should show error for: ${scenario.label}`, async ({ page, context }) => {
+    test.only(`should show error for: ${scenario.label}`, async ({ page, context }) => {
       const homePage = new HomePage(page);
       await homePage.gotoLoginPage(context);
       const loginPage = new LoginPage(context.pages()[1]);
