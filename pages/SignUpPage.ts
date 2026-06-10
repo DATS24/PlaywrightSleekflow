@@ -63,6 +63,7 @@ export class SignupPage {
     for (let i = 0; i < count; i++) {
       const text = await errors.nth(i).textContent();
       if (text?.trim()) texts.push(text.trim());
+      console.log(`Validation error found: ${text?.trim()}`);
     }
     return texts;
   }
