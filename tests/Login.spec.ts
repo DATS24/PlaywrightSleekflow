@@ -17,13 +17,13 @@ test.describe('Login — Successful for Valid Users', () => {
     const loginPage = new LoginPage(context.pages()[1]);
     await expect(loginPage.emailInput).toBeVisible();
     await expect(loginPage.continueButton).toBeVisible();
-    await expect(loginPage.resetPasswordLink).toBeVisible(); // Should display reset password link
     const user = getExistingUser();
     try {
       await loginPage.loginEmail(user.email);
       await context.pages()[1].waitForLoadState('networkidle');
       // After submitting the email, we should see the password input and sign in button for the next step of the login process
       await expect(loginPage.passwordInput).toBeVisible();
+      await expect(loginPage.resetPasswordLink).toBeVisible(); // Should display reset password link
       await loginPage.loginPassword(user.password);
       await context.pages()[1].waitForLoadState('networkidle');
       // After submitting the password, we should be redirected to the dashboard/home page, indicating a successful login
@@ -64,7 +64,6 @@ test.describe('Login — Empty Inputs & Invalid Username', () => {
     const loginPage = new LoginPage(context.pages()[1]);
     await expect(loginPage.emailInput).toBeVisible();
     await expect(loginPage.continueButton).toBeVisible();
-    await expect(loginPage.resetPasswordLink).toBeVisible(); // Should display reset password link;
     await loginPage.continueButton.click();
     const errors = await loginPage.getValidationErrors();
     const emailEmpty = await loginPage.emailInput.evaluate(
@@ -81,11 +80,11 @@ test.describe('Login — Empty Inputs & Invalid Username', () => {
     const loginPage = new LoginPage(context.pages()[1]);
     await expect(loginPage.emailInput).toBeVisible();
     await expect(loginPage.continueButton).toBeVisible();
-    await expect(loginPage.resetPasswordLink).toBeVisible(); // Should display reset password link
     const user = getExistingUser();
     await loginPage.loginEmail(user.email);
     await context.pages()[1].waitForLoadState('networkidle');
     await expect(loginPage.passwordInput).toBeVisible();
+    await expect(loginPage.resetPasswordLink).toBeVisible(); // Should display reset password link
     await loginPage.signinButton.click();
     const errors = await loginPage.getValidationErrors();
     const passwordEmpty = await loginPage.passwordInput.evaluate(
@@ -102,7 +101,6 @@ test.describe('Login — Empty Inputs & Invalid Username', () => {
     const loginPage = new LoginPage(context.pages()[1]);
     await expect(loginPage.emailInput).toBeVisible();
     await expect(loginPage.continueButton).toBeVisible();
-    await expect(loginPage.resetPasswordLink).toBeVisible(); // Should display reset password link
     const user = getInvalidUsername();
     await loginPage.loginEmail(user.email);
     const errors = await loginPage.getValidationErrors();
