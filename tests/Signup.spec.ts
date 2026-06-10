@@ -136,7 +136,7 @@ test.describe('Signup — Invalid Inputs', () => {
     expect(errors.some(error => error.toLowerCase().includes('the password is too weak'))).toBeTruthy(); // Should show an error message indicating that the password does not meet the required strength criteria, which helps ensure that users choose secure passwords during the signup process
   });
 
-  test.only('should reject a duplicate email address', async ({ page, context }) => {
+  test('should reject a duplicate email address', async ({ page, context }) => {
     const homePage = new HomePage(page);
     await homePage.gotoSignupPage(context);
     const signupPage = new SignupPage(context.pages()[1]);
