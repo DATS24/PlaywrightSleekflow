@@ -12,7 +12,7 @@ export class LoginPage {
   constructor(private page: Page) {
     this.emailInput        = page.getByLabel(/email/i);
     this.passwordInput     = page.locator('#password');
-    this.continueButton       = page.getByRole('button', { name: /continue/i });
+    this.continueButton       = page.locator('._button-login-id');
     this.signinButton        = page.getByRole('button', { name: /sign in/i }); 
     this.resetPasswordLink = page.getByRole('link', { name: /reset password/i });
     this.sendResetButton   = page.getByRole('button', { name: /send link/i });
